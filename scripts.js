@@ -29,7 +29,7 @@ const addCardProject = ({title, desc, link, img}) => {
     container.append(element)
 }
 
-const url = 'https://api.github.com/users/code-weekend/repos'
+const url = 'https://api.github.com/users/code-weekend/repos?access_token=0f763c68295632e9a4b3a0c52c3721bb62a0e48f'
 let projects
 const getProjects = () => $.ajax({
     method: 'GET',
