@@ -1,6 +1,8 @@
 const addCardProject = ({title, desc, link, img}) => {
     const container = $('#projects .row')
 
+    if (title === 'code-weekend.github.io') return
+
     // Create Element
     const elementString = `
     <div class="col s4">
@@ -21,18 +23,21 @@ const addCardProject = ({title, desc, link, img}) => {
     container.append(element)
 }
 
-fetch('https://api.github.com/users/code-weekend/repos')
-    .then(console.log)
-
-// JSON data
-const projects = [{
-    title: 'It follows',
-    desc: 'A simple game made without external dependencies, just using JS and Canvas.',
-    link: 'https://github.com/codeweekend/it-follows/',
-    img: 'https://materializecss.com/images/sample-1.jpg'
-},]
-
-$(document).ready(() => {
-    // TODO: Create cards
-    projects.map(addCardProject)
+const url = 'https://api.github.com/users/code-weekend/repos'
+let projects
+const getProjects = () => $.ajax({
+    method: 'GET',
+    url,
+    dataType: 'jsonp', //change the datatype to 'jsonp' works in most cases
+    success: (res) => {
+        projects = res.data.map(proj => ({
+            title: proj.name,
+            desc: proj.description,
+            link: proj.html_url,
+            img: `${proj.html_url}/raw/master/presentation.gif`,
+        }));
+        projects.map(addCardProject)
+    }
 })
+
+getProjects()
