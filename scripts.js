@@ -21,6 +21,9 @@ const addCardProject = ({title, desc, link, img}) => {
     container.append(element)
 }
 
+fetch('https://api.github.com/users/code-weekend/repos')
+    .then(console.log)
+
 // JSON data
 const projects = [{
     title: 'It follows',
